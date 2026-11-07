@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int N = 0;
+    int estado[10];
+    int ativos = 0;
+    int inativos = 0;
+    float porcentagem;
+
+    cout << "====================================" << endl;
+    cout << "   RADAR DE DISPOSITIVOS DA REDE" << endl;
+    cout << "====================================" << endl;
+
+    do {
+        cout << "\nDigite a quantidade de dispositivos (1 a 10): ";
+
+        if (!(cin >> N)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Entrada invalida! Digite um numero de 1 a 10." << endl;
+            N = 0;
+
+        } else if (N < 1 || N > 10) {
+            cout << "Erro! Digite uma quantidade entre 1 e 10." << endl;
+        }
+
+    } while (N < 1 || N > 10);
+
+    for (int i = 0; i < N; i++) {
+
+        do {
+            cout << "\nDispositivo " << i + 1;
+            cout << " (1 = Ativo / 0 = Inativo): ";
+
+            if (!(cin >> estado[i])) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+
+                estado[i] = -1;
+
+                cout << "Entrada invalida! Digite apenas 0 ou 1." << endl;
+
+            } else if (estado[i] != 0 && estado[i] != 1) {
+                cout << "Estado invalido! Digite apenas 0 ou 1." << endl;
+            }
+
+        } while (estado[i] != 0 && estado[i] != 1);
+
+        if (estado[i] == 1) {
+            ativos++;
+        } else {
+            inativos++;
+        }
+    }
+
+    porcentagem = (ativos * 100.0) / N;
+
+    cout << "\n====================================" << endl;
+    cout << "        RESULTADO DO RADAR" << endl;
+    cout << "====================================" << endl;
+
+    cout << "\nTotal de dispositivos: " << N << endl;
+    cout << "Dispositivos ativos: " << ativos << endl;
+    cout << "Dispositivos inativos: " << inativos << endl;
+
+    cout << "Porcentagem de dispositivos ativos: ";
+    cout << porcentagem << "%" << endl;
+
+    cout << "\n====================================" << endl;
+    cout << "       SITUACAO DA REDE" << endl;
+    cout << "====================================" << endl;
+
+    if (inativos == 0) {
+
+        cout << "TODOS OS DISPOSITIVOS ESTAO ATIVOS!" << endl;
+        cout << "A rede esta funcionando normalmente." << endl;
+
+    } else if (inativos == 1) {
+
+        cout << "ATENCAO: Existe 1 dispositivo inativo." << endl;
+        cout << "Verifique o dispositivo que esta com problema." << endl;
+
+    } else {
+
+        cout << "ALERTA: Existem 2 ou mais dispositivos inativos!" << endl;
+        cout << "A rede precisa de verificacao." << endl;
+
+    }
+
+    cout << "\n====================================" << endl;
+    cout << "       LISTA DE DISPOSITIVOS" << endl;
+    cout << "====================================" << endl;
+
+    for (int i = 0; i < N; i++) {
+
+        cout << "\nDispositivo " << i + 1 << ": ";
+
+        if (estado[i] == 1) {
+            cout << "ATIVO";
+        } else {
+            cout << "INATIVO";
+        }
+    }
+
+    cout << "\n\n====================================" << endl;
+    cout << "         FIM DO PROGRAMA" << endl;
+    cout << "====================================" << endl;
+
+    return 0;
+}
